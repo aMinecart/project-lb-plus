@@ -3,8 +3,21 @@ using System.Collections.Generic;
 using System.IO;
 
 public class Program {
+    // hash set to store scrabble dictionary
+    private static readonly HashSet<string> dictionary = new HashSet<string>();
+
+    // list to store all possible combos
+    private static List<string> combos = new List<string>();
+
     // import scrabble dictionary
-    private static readonly string DICTIONARY = Convert.ToBase64String(File.ReadAllBytes(dictionary.txt));
+    static void LoadDictionary(string filePath) {
+        using (StreamReader reader = new StreamReader(filePath)) {
+            string line;
+            while ((line = reader.ReadLine()) != null) {
+                dictionary.Add(line.Trim()); // Add trimmed word to dictionary
+            }
+        }
+    }
 
     // define all nodes connected to each node
     private static readonly Dictionary<char, string> letterOptions = new Dictionary<char, string> {
@@ -22,22 +35,34 @@ public class Program {
     // returns all possible subsequent words given initial letter combo or a space
     public static void GetPossibleCombos(string combo) {
         
-        // grab next possible legal letters using last letter in combo
-        string myLetterOptions = letterOptions[combo[combo.Length - 1]];
+        // return if word additions not possible
+        if (!dictionary.ContainsSubstring(combo)) {
+            return;
+        }
 
-        foreach (char letter in myLetterOptions) {
-            string newCombo = combo + letter;
-            if (DICTIONARY.Contains(newCombo)) {
-                if (DICTIONARY.Contains(newCombo + "\n")) {
-                    Console.WriteLine("Combo: " + newCombo);
-                }
-                GetPossibleCombos(newCombo);
-            }
+        // add combo if word fully matches dictionary word
+        if (dictionary.Contains(combo)) {
+            combos.Add(string.Join("", wordStack));
+        }
+
+        // grab letter options given last used letter
+        const string LETTER_OPTIONS = letterOptions[combo[combo.Length - 1]];
+
+        // uses recursion to iterate through every possible letter addition to the combo
+        foreach (char letter in LETTER_OPTIONS) {
+            GetPossibleCombos(combo + letter);
         }
     }
 
+    // prints all possible word combos in level
     public static void Main(string[] args) {
+        LoadDictionary("dictionary.txt");
+        combos.Clear();
         GetPossibleCombos(" ");
-        Console.WriteLine();
+
+        // print all possible combos
+        foreach (string combo in allCombos) {
+            Console.WriteLine(combo);
+        }
     }
 }
