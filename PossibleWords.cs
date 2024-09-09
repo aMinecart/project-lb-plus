@@ -1,3 +1,9 @@
+/*
+* Purpose: Print all possible word combos on a level
+* Author: Owen Colley
+* Date: 9/9/24
+*/
+
 using System;
 using System.Collections.Generic;
 using System.IO;
