@@ -17,10 +17,10 @@ public class Program {
 
     // import scrabble dictionary
     static void LoadDictionary(string filePath) {
-        using (StreamReader reader = new StreamReader(filePath)) {
+        using (StreamReader reader = new StreamReader(dictionary.txt)) {
             string line;
             while ((line = reader.ReadLine()) != null) {
-                dictionary.Add(line.Trim()); // Add trimmed word to dictionary
+                dictionary.Add(line.Trim());
             }
         }
     }
