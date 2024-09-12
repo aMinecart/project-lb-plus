@@ -22,14 +22,13 @@ public class Program {
         }
     }
 
-    // takes a string and removes any of the same letters next to each other
-    private string RemoveSimilalNeighborLevels(string word) {
-        newWord = "";
+    // returns if string has any of the same letters next to each other
+    private boolean SimilarNeighborLevels(string word) {
         for (int i = 0; i < word.length()-1) {
-            if (word[i] != word[i+1]) {
-                newWord += word[i];
+            if (word[i] == word[i+1]) {
+                return true;
             }
-        }
+        } return false;
     }
 
     // returns number of unique letters found in both passed in words
@@ -58,19 +57,23 @@ public class Program {
         }
 
         Random random = new Random();
-        combinedWord = ""
+        finalWord = "";
         // set combinedWord to legal words to fill myLevel with
         // legal words need the second word to start with the letter of the first word and to add to the correct length
         while (NumUniqueLetters(combinedWord) != myLevel.size()) {
-            string randWord1 = dictionary.ElementAt(random.Next(myLevel.length()));
+            string randWord1;
+            do {
+                randWord1 = dictionary.ElementAt(random.Next(myLevel.length()));
+            } while (SimilarNeighborLetters(randWord1);
+            
             const char LAST_LETTER = RAND_WORD1[word.length() - 1];
-            randWord2 = " ";
-            while (LAST_LETTER ! = randWord2[0]) {
+            string randWord2;
+            do {
                 randWord2 = dictionary.ElementAt(random.Next(myLevel.length()));
-            }
-            combinedWord = randWord1 + randWord2.substr(1);
+            } while (LAST_LETTER != randWord2[0] || SimilarNeighborLetter(randWord2)); // make sure 2nd word starts with letter 1st word ends on
+            
+            finalWord = randWord1 + randWord2.substr(1); // combine words and get rid of the duplicated letter
         }
-        const string finalString = RemoveSimilarNeighborLetters(combinedWord);
         
         // fill myLevel with finalString letters
         for (int i = 0; i < myLevel.length; ++i) {
