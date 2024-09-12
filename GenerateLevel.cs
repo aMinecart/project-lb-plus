@@ -22,26 +22,61 @@ public class Program {
         }
     }
 
-    private Level getRandomLevelPreset(int difficulty) {
-        const Level PRESET1 = {{' ', "abc"}, {' ', "bcd"}};
-        const Level PRESET2 = {{' ', "abc"}, {' ', "bcd"}};
-        const Level PRESET3 = {{' ', "abc"}, {' ', "bcd"}, {' ', "bcd"}};
-        const Level PRESET4 = {{' ', "abc"}, {' ', "bcd"}, {' ', "bcd"}};
-        const Level PRESET5 = {{' ', "abc"}, {' ', "bcd"}, {' ', "bcd"}, {' ', "bcd"}};
-        const Level PRESET6 = {{' ', "abc"}, {' ', "bcd"}, {' ', "bcd"}, {' ', "bcd"}};
-        
-        switch(difficulty) {
-            case 0: return PRESET1;
-            case 1: return PRESET2;
-            case 2: return PRESET3;
-            case 3: return PRESET4;
-            case 4: return PRESET5;
-            case 5: return PRESET6;
+    // takes a string and removes any of the same letters next to each other
+    private string RemoveSimilalNeighborLevels(string word) {
+        newWord = "";
+        for (int i = 0; i < word.length()-1) {
+            if (word[i] != word[i+1]) {
+                newWord += word[i];
+            }
         }
     }
 
-    private Level returnRandomLevel(int difficulty) {
-      emptyPreset = getRandomLevelPreset(difficulty);
+    // returns number of unique letters found in both passed in words
+    private int NumUniqueLetters(string word1, string word2) {
+        int count = 0;
+        foreach (char letter : word1) {
+            if (word2.indexOf(letter) != -1) {
+                ++count;
+            }
+        }
+        return count;
+    }
+
+    // takes a difficulty and number of words solution to create a random preset based on difficulty, then fills it with letters.
+    private Level ReturnRandomLevel(int difficulty) {
+        Level myLevel;
+        // set myLevel to an empty based on difficulty
+        switch(difficulty) {
+            case 0: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+            case 1: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+            case 2: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+            case 3: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+            case 4: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+            case 5: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+            default: myLevel = {{' ', "abc"}, {' ', "bcd"}}; break;
+        }
+
+        Random random = new Random();
+        combinedWord = ""
+        // set combinedWord to legal words to fill myLevel with
+        // legal words need the second word to start with the letter of the first word and to add to the correct length
+        while (NumUniqueLetters(combinedWord) != myLevel.size()) {
+            string randWord1 = dictionary.ElementAt(random.Next(myLevel.length()));
+            const char LAST_LETTER = RAND_WORD1[word.length() - 1];
+            randWord2 = " ";
+            while (LAST_LETTER ! = randWord2[0]) {
+                randWord2 = dictionary.ElementAt(random.Next(myLevel.length()));
+            }
+            combinedWord = randWord1 + randWord2.substr(1);
+        }
+        const string finalString = RemoveSimilarNeighborLetters(combinedWord);
+        
+        // fill myLevel with finalString letters
+        for (int i = 0; i < myLevel.length; ++i) {
+            myLevel[i] = {finalString[i], myLevel[i][1]};
+        }
+        return myLevel;
     }
 
     // prints all possible word combos in level
