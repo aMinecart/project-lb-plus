@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Edit Toggle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Knob.cs" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Knob" type="Button" parent="."]
+margin_right = 199.0
+margin_bottom = 200.0
+text = "Letter"
+script = ExtResource( 2 )
+
+[node name="Edit Toggle" parent="." instance=ExtResource( 1 )]

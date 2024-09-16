@@ -4,6 +4,7 @@
 * Date: 9/11/24
 */
 
+/*
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,3 +50,4 @@ public class Program {
         LoadDictionary("dictionary.txt");
     }
 }
+*/
