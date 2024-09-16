@@ -1,0 +1,56 @@
+'''
+Purpose: Print all possible word combos on a level
+Author: Owen Colley
+Date: 9/9/24
+'''
+
+class Program:
+    # arrays to store scrabble dictionary and combos
+    dictionary = []
+	combos = []
+	
+	func load_file(file):
+		var f = File.new()
+		f.open(file, File.READ)
+		while not f.eof_reached(): # iterate through all lines until the end of file is reached
+			dictionary.append(f.get_line())
+		f.close()
+	
+    # define all nodes connected to each node
+    letterOptions = [[' ', "abcdefgh"], # the initial node when none have been given, returns all nodes
+			        ['a', "bfgh"],
+			        ['b', "afgh"],
+			        ['c', "defg"],
+			        ['d', "cefg"],
+			        ['e', "dcfgh"],
+			        ['f', "abcdfgh"],
+			        ['g', "abcdefg"],
+			        ['h', "abfge"]]
+
+    # returns all possible subsequent words given initial letter combo or a space
+    func get_possible_combos(combo):
+        
+        # return if word additions not possible
+        if (!dictionary.ContainsSubstring(combo))
+            return
+
+        # add combo if word fully matches dictionary word
+        if (dictionary.Contains(combo))
+            combos.append(combo + " ")
+
+        # grab letter options given last used letter
+        my_letter_options = letter_options[combo[combo.length() - 1]]
+
+        # uses recursion to iterate through every possible letter addition to the combo
+        for letter in my_letter_options:
+            get_possible_combos(combo + letter)
+	
+    # prints all possible word combos in level
+    func _ready():
+		load_file("res://dictionary.txt")
+        combos = []
+        get_possible_combos(" ")
+
+        # print all possible combos
+        for combo in allCombos:
+            print(combo)
