@@ -1,5 +1,5 @@
 /**
- * Purpose: Add words from dictionary with double letters next to each other to new dictionary
+ * Purpose: Add words from dictionary without double letters next to each other to new dictionary
  * 
  * Author: Owen Colley
  * Date: 9/18/24
