@@ -22,19 +22,19 @@ bool duplicateLetters(std::string word) {
 }
 
 int main() {
-  std::ifstream fin(dictionary.c_str());
-  std::ofstream fout(new_dictionary.c_str());
-  if (!fin || !fout) {
-      std::cerr << "Cannot open dictionary." << std::endl;
-      exit(1);
-  }
-
-  std::string word;
-  while(fin >> word) {
-      if (!duplicateLetters(word)) {
-          new_dictionary << word << std::endl;
-      }
-  }
-  
-  return 0;
+    std::ifstream fin(dictionary.c_str());
+    std::ofstream fout(new_dictionary.c_str());
+    if (!fin || !fout) {
+        std::cerr << "Cannot open dictionary." << std::endl;
+        exit(1);
+    }
+    
+    std::string word;
+    while(fin >> word) {
+        if (!duplicateLetters(word)) {
+            new_dictionary << word << std::endl;
+        }
+    }
+      
+    return 0;
 }
