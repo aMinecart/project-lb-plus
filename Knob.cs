@@ -4,16 +4,19 @@ using Godot;
 
 public class Knob : Button
 {
-	[Export] private List<Button> linkList = new List<Button>();
+	[Export] public int buttonID = 0;
+	public List<int> linkIDs = new List<int>();
 	
 	private bool editMode = false;
 	private bool isEditing = false;
-	private Button editToggle;
+	private EditToggle editToggle;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		editToggle = GetParent().GetNode<Button>("Edit Toggle");
+		this.Name = buttonID.ToString();
+		
+		editToggle = GetParent().GetNode<EditToggle>("Edit Toggle");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,9 +24,14 @@ public class Knob : Button
   	{
 		UpdateEditing();
 		UpdateEditStatus();
+
+		foreach (int num in linkIDs)
+		{
+		}
+		GD.Print(buttonID + " " + linkIDs.Count);
 	}
 
-	public void UpdateEditing()
+	private void UpdateEditing()
 	{
 		editMode = editToggle.Pressed;
 		if(editMode)
@@ -37,7 +45,7 @@ public class Knob : Button
 		}
 	}
 	
-	public void UpdateEditStatus()
+	private void UpdateEditStatus()
 	{
 		isEditing = editMode && this.Pressed;
 		if(editMode && this.Pressed)
@@ -48,14 +56,28 @@ public class Knob : Button
 		{
 			isEditing = false;
 		}
-		
 	}
 
-	public override void _Input(InputEvent @event)
+	public override void _Pressed()
 	{
-		if (editMode && @event is InputEventKey inputEventKey && isEditing)
+		editToggle.activeKnob = this;
+		editToggle.connections.Add(buttonID);
+
+		if (editToggle.connections.Count > 1)
 		{
-			Text = @event.AsText();
+			Knob knob = GetParent().GetNode<Knob>(editToggle.connections[editToggle.connections.Count - 2].ToString());
+			knob.linkIDs.Add(buttonID);
+		}
+	}
+
+    public override void _Input(InputEvent @event)
+	{
+		if (@event is InputEventKey inputEventKey)
+		{
+			if (editMode && isEditing)
+			{
+				this.Text = inputEventKey.AsText();
+			}
 		}
 	}
 }
