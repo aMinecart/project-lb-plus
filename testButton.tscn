@@ -1,7 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Edit Toggle.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Knob.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SceneManager.tscn" type="PackedScene" id=2]
+
+[sub_resource type="CSharpScript" id=1]
+script/source = "using Godot;
+using System;
+
+public class LetterLine : Line2D
+{
+	// Declare member variables here. Examples:
+	// private int a = 2;
+	// private string b = \"text\";
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		
+	}
+
+//  // Called every frame. 'delta' is the elapsed time since the previous frame.
+
+}
+"
 
 [node name="Node2D" type="Node2D"]
 
@@ -10,23 +31,21 @@ margin_left = 371.0
 margin_top = 69.0
 margin_right = 570.0
 margin_bottom = 269.0
-
-[node name="Knob2" parent="." instance=ExtResource( 2 )]
-margin_left = 659.0
-margin_top = 72.0
-margin_right = 858.0
-margin_bottom = 272.0
+action_mode = 0
+ID = 1
 
 [node name="Edit Toggle" parent="." instance=ExtResource( 1 )]
+margin_left = 393.0
+margin_top = 389.0
+margin_right = 506.0
+margin_bottom = 493.0
 
-[node name="Knob3" parent="." instance=ExtResource( 2 )]
-margin_left = 372.0
-margin_top = 339.0
-margin_right = 571.0
-margin_bottom = 539.0
+[node name="Line2D" type="Line2D" parent="."]
+points = PoolVector2Array( 203, 269 )
+script = SubResource( 1 )
 
-[node name="Knob4" parent="." instance=ExtResource( 2 )]
-margin_left = 666.0
-margin_top = 338.0
-margin_right = 865.0
-margin_bottom = 538.0
+[node name="Knob2" parent="." instance=ExtResource( 2 )]
+margin_left = 651.0
+margin_top = 73.0
+margin_right = 850.0
+margin_bottom = 273.0

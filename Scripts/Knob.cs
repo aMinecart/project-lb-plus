@@ -4,8 +4,11 @@ using Godot;
 
 public class Knob : Button
 {
-	[Export] private List<Button> linkList = new List<Button>();
 	
+	[Export] private int ID = 0;
+	[Export] private List<int> linkIDList = new List<int>();
+	
+	private bool wasPrevPressed = false;
 	private bool editMode = false;
 	private bool isEditing = false;
 	private Button editToggle;
@@ -21,6 +24,7 @@ public class Knob : Button
   	{
 		UpdateEditing();
 		UpdateEditStatus();
+		UpdateAttemptConnection();
 	}
 
 	public void UpdateEditing()
@@ -48,7 +52,18 @@ public class Knob : Button
 		{
 			isEditing = false;
 		}
-		
+	}
+	
+	public void UpdateAttemptConnection()
+	{
+		if(this.Pressed && !wasPrevPressed)
+		{
+			wasPrevPressed = true;
+		}
+		else
+		{
+			wasPrevPressed = false;
+		}
 	}
 
 	public override void _Input(InputEvent @event)
