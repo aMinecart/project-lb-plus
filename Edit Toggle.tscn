@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="Edit Toggle" type="Button"]
+margin_left = 182.0
+margin_top = 233.0
+margin_right = 295.0
+margin_bottom = 337.0
+toggle_mode = true
+text = "Edit"
