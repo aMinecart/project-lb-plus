@@ -9,7 +9,9 @@ public class Knob : Button
 	
 	private bool editMode = false;
 	private bool isEditing = false;
+
 	private EditToggle editToggle;
+	public Line2D line;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,6 +19,7 @@ public class Knob : Button
 		this.Name = buttonID.ToString();
 		
 		editToggle = GetParent().GetNode<EditToggle>("Edit Toggle");
+		line = GetNode<Line2D>("Line2D2");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

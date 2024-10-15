@@ -13,20 +13,29 @@ public class EditToggle : Button
     public Knob activeKnob;
 
     private IEnumerable<Knob> linkList;
+    private RichTextLabel textLabel;
     public List<int> connections = new List<int>();
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         linkList = GetParent().GetChildren().OfType<Knob>();
+        textLabel = GetParent().GetNode<RichTextLabel>("RichTextLabel");
     }
 
     public override void _Process(float delta)
     {
         clock += delta;
+
+        string temp = "";
+        foreach (int ID in connections)
+        {
+            temp += GetParent().GetNode<Knob>(ID.ToString()).Text;
+        }
+
+        textLabel.Text = temp;
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Draw()
     {
         for (int i = 0; i < connections.Count - 1; i++)
@@ -34,11 +43,14 @@ public class EditToggle : Button
             Knob knob = GetParent().GetNode<Knob>(connections[i].ToString());
             Vector2 offset = knob.RectSize / 2;
 
+            // knob.line.ClearPoints();
+            // knob.line.AddPoint(knob.RectGlobalPosition - this.RectGlobalPosition + offset);
+
             foreach (int linkID in knob.linkIDs)
 		    {
-                GD.Print("here");
                 Button link = GetParent().GetNode<Button>(linkID.ToString());
                 DrawLine(knob.RectGlobalPosition - this.RectGlobalPosition + offset, link.RectGlobalPosition - this.RectGlobalPosition + offset, Colors.Gray, 2);
+                // knob.line.AddPoint(link.RectGlobalPosition - this.RectGlobalPosition + offset);
 		    }
         }
     }
